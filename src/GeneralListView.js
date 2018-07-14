@@ -176,7 +176,7 @@ export default class extends React.Component {
     _refreshControl = () => {
         return this.props.refreshControl || (
             <RefreshControl
-                refreshing={this.state.refreshing}
+                refreshing={this.state.isRefreshing}
                 onRefresh={this.refresh}
                 tintColor="#fff"
                 titleColor="#fff"
