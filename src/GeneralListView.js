@@ -127,7 +127,7 @@ export default class extends React.Component {
     };
 
     _ListFooterComponent = () => {
-        if (this.props.hasFooter) {
+        if (this.props.hasFooter && this.props.data === undefined) {
             let type = FooterType.nothing;
             if (this.state.isLoadingMore) {
                 type = FooterType.loading;
