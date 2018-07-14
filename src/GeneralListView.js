@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SectionList, RefreshControl } from 'react-native';
+import { FlatList, SectionList, RefreshControl, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 import { SeperatorLine } from 'react-native-hecom-common';
 import Footer, { FooterType } from './components/Footer';
@@ -57,7 +57,7 @@ export default class extends React.Component {
     }
 
     componentWillMount() {
-        this.refresh();
+        InteractionManager.runAfterInteractions(this.refresh);
     }
 
     _loadPage = (pageNumber) => {
