@@ -187,11 +187,16 @@ export default class extends React.Component {
 
     render() {
         const List = this.props.List || (this.props.isSection ? SectionList : FlatList);
+        const innerProps = {};
+        if (this.props.isSection) {
+            innerProps.sections = this.state.data;
+        } else {
+            innerProps.data = this.state.data;
+        }
         return (
             <List
                 ref={ref => this.props.innerRef && this.props.innerRef(ref)}
                 style={this.props.style}
-                data={this.state.data}
                 ItemSeparatorComponent={this._ItemSeparatorComponent}
                 ListFooterComponent={this._ListFooterComponent}
                 ListEmptyComponent={this._ListEmptyComponent}
@@ -199,6 +204,7 @@ export default class extends React.Component {
                 onEndReached={this.loadmore}
                 refreshControl={this.props.canRefresh ? this._refreshControl() : undefined}
                 keyExtractor={(item, index) => index}
+                {...innerProps}
                 {...this.props}
             />
         );
