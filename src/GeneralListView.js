@@ -14,7 +14,7 @@ export default class extends React.Component {
         hasFooter: PropTypes.bool, // 是否有列表底部展示
         hasEmptyView: PropTypes.bool, // 是否有空白页面，默认有
         hasErrorView: PropTypes.bool, // 是否有错误页面，默认有
-        showNothingFooter: PropTypes.bool, // 是否显示已经到底了，默认为true
+        showNomoreFooter: PropTypes.bool, // 是否显示已经到底了，默认为true
         canRefresh: PropTypes.bool, // 是否允许下拉刷新
         canLoadMore: PropTypes.bool, // 是否允许加载更多
         maxCount: PropTypes.number, // 最大数量，如果超过，则显示查看更多，默认不开启(-1)
@@ -25,6 +25,7 @@ export default class extends React.Component {
         data: PropTypes.array, // 不分页时展示的数据内容，如果不是undefined，则表示不分页，否则调用onLoadPage加载分页数据
         onLoadPage: PropTypes.func, // 加载指定页面的方法，(pageNumber, pageSize) => ({data, isEnd})
         onPressFooter: PropTypes.func, // 如果列表底部有查看更多，则为其点击事件
+        style: PropTypes.any, // 自定义样式
     };
 
     static get defaultProps() {
@@ -33,7 +34,7 @@ export default class extends React.Component {
             hasFooter: true,
             hasEmptyView: true,
             hasErrorView: true,
-            showNothingFooter: true,
+            showNomoreFooter: true,
             canRefresh: true,
             canLoadMore: true,
             maxCount: -1,
@@ -101,6 +102,9 @@ export default class extends React.Component {
     };
 
     loadmore = () => {
+        if (this.state.isEnd) {
+            return;
+        }
         this.setState({isLoadingMore: true});
         return this._loadPage(this.pageNumber + 1)
             .then((state) => {
@@ -130,7 +134,7 @@ export default class extends React.Component {
             } else if (this.state.isEnd) {
                 if (this.props.maxCount >= 0) {
                     type = FooterType.lookmore;
-                } else {
+                } else if (this.props.showNomoreFooter) {
                     type = FooterType.nomore;
                 }
             }
@@ -186,6 +190,7 @@ export default class extends React.Component {
         return (
             <List
                 ref={ref => this.props.innerRef && this.props.innerRef(ref)}
+                style={this.props.style}
                 data={this.state.data}
                 ItemSeparatorComponent={this._ItemSeparatorComponent}
                 ListFooterComponent={this._ListFooterComponent}
