@@ -60,6 +60,12 @@ export default class extends React.Component {
         InteractionManager.runAfterInteractions(this.refresh);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.data !== undefined) {
+            this.refresh();
+        }
+    }
+
     _loadPage = (pageNumber) => {
         let promise;
         if (this.props.data === undefined) {
