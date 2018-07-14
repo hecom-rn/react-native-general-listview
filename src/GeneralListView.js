@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SectionList, RefreshControl, InteractionManager } from 'react-native';
+import { FlatList, SectionList, RefreshControl, InteractionManager, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { SeperatorLine } from 'react-native-hecom-common';
 import Footer, { FooterType } from './components/Footer';
@@ -124,7 +124,7 @@ export default class extends React.Component {
     _ItemSeparatorComponent = ({highlighted}) => {
         const left = this.props.seperatorMarginLeft;
         if (left < 0) {
-            return undefined;
+            return <View />;
         } else {
             return (
                 <SeperatorLine style={{marginLeft: highlighted ? 0 : left}} />
@@ -160,7 +160,7 @@ export default class extends React.Component {
 
     _ListEmptyComponent = () => {
         if (this.pageNumber < this.props.initialPageNumber) {
-            return null;
+            return <View />;
         } else if (this.props.hasErrorView && this.state.error) {
             return (
                 <EmptyView
