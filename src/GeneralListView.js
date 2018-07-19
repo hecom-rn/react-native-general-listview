@@ -192,7 +192,7 @@ export default class extends React.Component {
         return this.props.refreshControl || (
             <RefreshControl
                 refreshing={this.state.isRefreshing}
-                onRefresh={this.props.onRefresh || this.refresh}
+                onRefresh={this.refresh}
                 tintColor="#fff"
                 titleColor="#fff"
                 colors={["red", "green", "blue"]}
