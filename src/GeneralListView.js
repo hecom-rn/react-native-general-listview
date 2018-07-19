@@ -79,9 +79,10 @@ export default class extends React.Component {
                 console.error('You need to add an onLoadPage property in GeneralListView');
             }
         } else {
-            promise = new Promise(function (resolve) {
+            const data = this.props.data;
+            promise = new Promise((resolve) => {
                 setTimeout(() => {
-                    resolve({data: this.props.data, isEnd: true});
+                    resolve({data: data, isEnd: true});
                 }, 100);
             });
         }
