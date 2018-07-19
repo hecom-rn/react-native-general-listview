@@ -111,7 +111,7 @@ export default class extends React.Component {
         if (this.state.isRefreshing || this.state.isLoadingMore) {
             return;
         }
-        if (this.pageNumber < this.props.initialPageNumber) {
+        if (this.pageNumber >= this.props.initialPageNumber) {
             this.setState({isRefreshing: true});
         }
         return this._loadPage(this.props.initialPageNumber)
