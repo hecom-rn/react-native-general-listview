@@ -218,7 +218,10 @@ export default class extends React.Component {
         }
         return (
             <List
-                ref={ref => this.props.innerRef && this.props.innerRef(ref)}
+                ref={ref => {
+                    this.innerList = ref;
+                    this.props.innerRef && this.props.innerRef(ref);
+                }}
                 style={this.props.style}
                 ItemSeparatorComponent={this._ItemSeparatorComponent}
                 ListFooterComponent={this._ListFooterComponent}
