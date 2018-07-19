@@ -17,7 +17,6 @@ export default class extends React.Component {
         showNomoreFooter: PropTypes.bool, // 是否显示已经到底了，默认为true
         canRefresh: PropTypes.bool, // 是否允许下拉刷新
         canLoadMore: PropTypes.bool, // 是否允许加载更多
-        onRefresh: PropTypes.func, // 如果存在，下拉刷新的回调会调用这个方法，而不是内部refresh方法
         maxCount: PropTypes.number, // 最大数量，如果超过，则显示查看更多，默认不开启(-1)
         refreshControl: PropTypes.element, // 自定义下拉刷新组件
         seperatorMarginLeft: PropTypes.number, // 默认分隔线组件的左边距，自定义分隔线不生效
@@ -214,11 +213,12 @@ export default class extends React.Component {
                 style={this.props.style}
                 ItemSeparatorComponent={this._ItemSeparatorComponent}
                 ListFooterComponent={this._ListFooterComponent}
-                ListEmptyComponent={this._ListEmptyComponent}
+                ListEmptyComponent={this.props.hasEmptyView ? this._ListEmptyComponent : undefined}
                 onEndReachedThreshold={0.3}
                 onEndReached={this.loadmore}
                 refreshControl={this.props.canRefresh ? this._refreshControl() : undefined}
                 keyExtractor={(item, index) => index}
+                extraData={this.state}
                 {...innerProps}
                 {...this.props}
             />
