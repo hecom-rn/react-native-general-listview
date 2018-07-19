@@ -216,6 +216,10 @@ export default class extends React.Component {
         } else {
             innerProps.data = this.state.data;
         }
+        if (this.props.canLoadMore) {
+            innerProps.onEndReachedThreshold = 0.3;
+            innerProps.onEndReached = this.loadmore;
+        }
         return (
             <List
                 ref={ref => {
@@ -226,8 +230,6 @@ export default class extends React.Component {
                 ItemSeparatorComponent={this._ItemSeparatorComponent}
                 ListFooterComponent={this._ListFooterComponent}
                 ListEmptyComponent={this.props.hasEmptyView ? this._ListEmptyComponent : undefined}
-                onEndReachedThreshold={0.3}
-                onEndReached={this.loadmore}
                 refreshControl={this.props.canRefresh ? this._refreshControl() : undefined}
                 keyExtractor={(item, index) => index}
                 extraData={this.state}
