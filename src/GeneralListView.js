@@ -17,6 +17,7 @@ export default class extends React.Component {
         showNomoreFooter: PropTypes.bool, // 是否显示已经到底了，默认为true
         canRefresh: PropTypes.bool, // 是否允许下拉刷新
         canLoadMore: PropTypes.bool, // 是否允许加载更多
+        onRefresh: PropTypes.func, // 如果存在，下拉刷新的回调会调用这个方法，而不是内部refresh方法
         maxCount: PropTypes.number, // 最大数量，如果超过，则显示查看更多，默认不开启(-1)
         refreshControl: PropTypes.element, // 自定义下拉刷新组件
         seperatorMarginLeft: PropTypes.number, // 默认分隔线组件的左边距，自定义分隔线不生效
@@ -65,7 +66,7 @@ export default class extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== undefined) {
-            this.refresh();
+            InteractionManager.runAfterInteractions(this.refresh);
         }
     }
 
@@ -78,7 +79,11 @@ export default class extends React.Component {
                 console.error('You need to add an onLoadPage property in GeneralListView');
             }
         } else {
-            promise = Promise.resolve({data: this.props.data, isEnd: true});
+            promise = new Promise(function (resolve) {
+                setTimeout(() => {
+                    resolve({data: this.props.data, isEnd: true});
+                }, 100);
+            });
         }
         return promise
             .then(({data, isEnd}) => {
@@ -186,7 +191,7 @@ export default class extends React.Component {
         return this.props.refreshControl || (
             <RefreshControl
                 refreshing={this.state.isRefreshing}
-                onRefresh={this.refresh}
+                onRefresh={this.props.onRefresh || this.refresh}
                 tintColor="#fff"
                 titleColor="#fff"
                 colors={["red", "green", "blue"]}
