@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SectionList, RefreshControl, InteractionManager, View } from 'react-native';
+import { FlatList, SectionList, RefreshControl, InteractionManager } from 'react-native';
 import PropTypes from 'prop-types';
 import { SeperatorLine } from 'react-native-hecom-common';
 import Footer, { FooterType } from './components/Footer';
@@ -49,7 +49,8 @@ export default class extends React.Component {
         super(props);
         this.pageNumber = -1;
         this.state = {
-            data: [],
+            data: props.data === undefined ? [] :
+                props.maxCount >= 0 ? props.data.slice(0, props.maxCount) : props.data,
             isEnd: false,
             isRefreshing: false,
             isLoadingMore: false,
@@ -57,7 +58,9 @@ export default class extends React.Component {
     }
 
     componentWillMount() {
-        InteractionManager.runAfterInteractions(this.refresh);
+        if (this.props.data === undefined) {
+            InteractionManager.runAfterInteractions(this.refresh);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -124,7 +127,7 @@ export default class extends React.Component {
     _ItemSeparatorComponent = ({highlighted}) => {
         const left = this.props.seperatorMarginLeft;
         if (left < 0) {
-            return <View />;
+            return null;
         } else {
             return (
                 <SeperatorLine style={{marginLeft: highlighted ? 0 : left}} />
@@ -160,7 +163,7 @@ export default class extends React.Component {
 
     _ListEmptyComponent = () => {
         if (this.pageNumber < this.props.initialPageNumber) {
-            return <View />;
+            return null;
         } else if (this.props.hasErrorView && this.state.error) {
             return (
                 <EmptyView
