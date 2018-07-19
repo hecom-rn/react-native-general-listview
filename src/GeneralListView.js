@@ -41,7 +41,6 @@ export default class extends React.Component {
             seperatorMarginLeft: 0,
             initialPageNumber: 1,
             pageSize: 10,
-            data: undefined,
         };
     }
 
@@ -86,12 +85,16 @@ export default class extends React.Component {
             });
         }
         return promise
-            .then(({data, isEnd}) => {
+            .then(({data, isEnd, isAllData}) => {
                 this.pageNumber = pageNumber;
-                if (pageNumber === this.props.initialPageNumber) {
+                if (isAllData) {
                     data = [...data];
                 } else {
-                    data = [...this.state.data, ...data];
+                    if (pageNumber === this.props.initialPageNumber) {
+                        data = [...data];
+                    } else {
+                        data = [...this.state.data, ...data];
+                    }
                 }
                 if (this.props.maxCount >= 0) {
                     data = data.slice(0, this.props.maxCount);
@@ -105,7 +108,12 @@ export default class extends React.Component {
     };
 
     refresh = () => {
-        this.setState({isRefreshing: true});
+        if (this.state.isRefreshing || this.state.isLoadingMore) {
+            return;
+        }
+        if (this.pageNumber < this.props.initialPageNumber) {
+            this.setState({isRefreshing: true});
+        }
         return this._loadPage(this.props.initialPageNumber)
             .then((state) => {
                 this.setState({
@@ -116,7 +124,8 @@ export default class extends React.Component {
     };
 
     loadmore = () => {
-        if (this.state.isEnd) {
+        if (this.pageNumber < this.props.initialPageNumber || this.state.isEnd ||
+            this.state.isRefreshing || this.state.isLoadingMore) {
             return;
         }
         this.setState({isLoadingMore: true});

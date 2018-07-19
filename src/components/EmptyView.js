@@ -23,7 +23,7 @@ export default class extends React.Component {
     render() {
         const view = this._renderView();
         return this.props.onPress ? (
-            <TouchableWithoutFeedback onPress={this.props.onPress}>
+            <TouchableWithoutFeedback style={{flex: 1}} onPress={this.props.onPress}>
                 {view}
             </TouchableWithoutFeedback>
         ) : view;
