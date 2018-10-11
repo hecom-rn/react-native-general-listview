@@ -72,7 +72,11 @@ export default class extends React.Component {
         let promise;
         if (this.props.data === undefined) {
             if (this.props.onLoadPage) {
-                promise = this.props.onLoadPage(pageNumber, this.props.pageSize);
+                promise = this.props.onLoadPage(
+                    pageNumber,
+                    this.props.pageSize,
+                    this.state
+                );
             } else {
                 console.error('You need to add an onLoadPage property in GeneralListView');
             }
