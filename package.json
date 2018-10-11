@@ -1,6 +1,6 @@
 {
   "name": "react-native-general-listview",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "description": "A general list view.",
   "main": "src/index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RNCommon/react-native-general-listview.git"
+    "url": "git+https://github.com/gaoxiaosong/react-native-general-listview.git"
   },
   "keywords": [
     "React-Native",
@@ -18,8 +18,8 @@
   "author": "Xiaosong Gao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RNCommon/react-native-general-listview/issues",
+    "url": "https://github.com/gaoxiaosong/react-native-general-listview/issues",
     "email": "gaoxiaosong06@gmail.com"
   },
-  "homepage": "https://github.com/RNCommon/react-native-general-listview#readme"
+  "homepage": "https://github.com/gaoxiaosong/react-native-general-listview#readme"
 }
