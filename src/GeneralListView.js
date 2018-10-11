@@ -1,7 +1,6 @@
 import React from 'react';
-import { FlatList, SectionList, RefreshControl, InteractionManager } from 'react-native';
+import { FlatList, SectionList, RefreshControl, InteractionManager, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { SeperatorLine } from 'react-native-hecom-common';
 import Footer, { FooterType } from './components/Footer';
 import EmptyView from './components/EmptyView';
 import ListViewConfig from './components/ListViewConfig';
@@ -148,7 +147,13 @@ export default class extends React.Component {
             return null;
         } else {
             return (
-                <SeperatorLine style={{marginLeft: highlighted ? 0 : left}} />
+                <View
+                    style={{
+                        backgroundColor: '#e6e6e6',
+                        height: StyleSheet.hairlineWidth,
+                        marginLeft: highlighted ? 0 : left,
+                    }}
+                />
             );
         }
     };

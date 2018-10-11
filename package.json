@@ -21,8 +21,5 @@
     "url": "https://github.com/RNCommon/react-native-general-listview/issues",
     "email": "gaoxiaosong06@gmail.com"
   },
-  "homepage": "https://github.com/RNCommon/react-native-general-listview#readme",
-  "dependencies": {
-    "react-native-hecom-common": "^0.1.1"
-  }
+  "homepage": "https://github.com/RNCommon/react-native-general-listview#readme"
 }
