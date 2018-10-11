@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SectionList, RefreshControl, InteractionManager, StyleSheet } from 'react-native';
+import { View, FlatList, SectionList, RefreshControl, InteractionManager, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import Footer, { FooterType } from './components/Footer';
 import EmptyView from './components/EmptyView';
