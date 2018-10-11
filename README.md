@@ -1,7 +1,5 @@
 # react-native-general-listview
 
-[![Build Status](https://travis-ci.org/RNCommon/react-native-general-listview.svg?branch=master)](https://travis-ci.org/RNCommon/react-native-general-listview)
-
 通用的ListView，目前支持如下功能：
 
 * 支持普通列表和分区列表。
