@@ -231,7 +231,7 @@ export default class extends React.Component {
                 ListFooterComponent={this._ListFooterComponent}
                 ListEmptyComponent={this.props.hasEmptyView ? this._ListEmptyComponent : undefined}
                 refreshControl={this.props.canRefresh ? this._refreshControl() : undefined}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => String(index)}
                 extraData={this.state}
                 {...innerProps}
                 {...this.props}
