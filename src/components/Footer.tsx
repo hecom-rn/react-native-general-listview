@@ -1,39 +1,48 @@
 import React from 'react';
-import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
+import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import ListViewConfig from './ListViewConfig';
 
-export const FooterType = {
-    lookmore: 'lookmore', // 查看更多
-    loading: 'loading', // 加载中
-    nomore: 'nomore', // 已经到底了
-    nothing: 'nothing', // 空视图
+export enum FooterType {
+    lookmore = 'lookmore', // 查看更多
+    loading = 'loading', // 加载中
+    nomore = 'nomore', // 已经到底了
+    nothing = 'nothing', // 空视图
 };
 
 export const FooterHeight = 48;
 
-export default class extends React.Component {
-    static propTypes = {
-        type: PropTypes.oneOf(Object.values(FooterType)),
-        onPress: PropTypes.func, // 点击事件回调
-        lookmoreView: PropTypes.element, // 查看更多视图
-        loadingView: PropTypes.element, // 加载中视图
-        nomoreView: PropTypes.element, // 已经到底视图
-        nothingView: PropTypes.element, // 空视图
-    };
+export interface FooterProps {
+    type: FooterType;
+    onPress: () => void, // 点击事件回调
+    lookmoreView: React.ReactNode, // 查看更多视图
+    loadingView: React.ReactNode, // 加载中视图
+    nomoreView: React.ReactNode, // 已经到底视图
+    nothingView: React.ReactNode, // 空视图
+    customLookMoreStyle: {
+        view: ViewStyle,
+        text: TextStyle,
+    },
+    customLoadingStyle: {
+        view: ViewStyle,
+        text: TextStyle,
+    }
+    customNoMoreStyle: {
+        view: ViewStyle,
+        text: TextStyle,
+    }
+}
 
-    static get defaultProps() {
-        return {
-            type: FooterType.nothing,
-        };
+export default class extends React.Component<FooterProps> {
+    static defaultProps = {
+        type: FooterType.nothing,
     }
 
     _renderLoadMore = () => {
-        const { onPress } = this.props;
+        const { onPress, customLookMoreStyle } = this.props;
         return (
             <TouchableOpacity onPress={onPress}>
-                <View style={styles.loadmoreview}>
-                    <Text style={styles.loadmoretext}>
+                <View style={[styles.loadmoreview, customLookMoreStyle.view]}>
+                    <Text style={[styles.loadmoretext, customLookMoreStyle.text]}>
                         {ListViewConfig.ShowmoreText}
                     </Text>
                 </View>
@@ -42,10 +51,11 @@ export default class extends React.Component {
     };
 
     _renderLoading = () => {
+        const { customLoadingStyle } = this.props;
         return (
-            <View style={styles.loadingview}>
-                <ActivityIndicator size="small" />
-                <Text style={styles.loadingtext}>
+            <View style={[styles.loadingview, customLoadingStyle.view]}>
+                <ActivityIndicator size="small"/>
+                <Text style={[styles.loadingtext, customLoadingStyle.text]}>
                     {ListViewConfig.LoadingText}
                 </Text>
             </View>
@@ -53,9 +63,10 @@ export default class extends React.Component {
     };
 
     _renderNoMore = () => {
+        const { customNoMoreStyle } = this.props;
         return (
-            <View style={styles.nomoreview}>
-                <Text style={styles.nomoretext}>
+            <View style={[styles.nomoreview, customNoMoreStyle.view]}>
+                <Text style={[styles.nomoretext, customNoMoreStyle.text]}>
                     {ListViewConfig.NomoreText}
                 </Text>
             </View>
