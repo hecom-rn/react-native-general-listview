@@ -41,8 +41,8 @@ export default class extends React.Component<FooterProps> {
         const { onPress, customLookMoreStyle } = this.props;
         return (
             <TouchableOpacity onPress={onPress}>
-                <View style={[styles.loadmoreview, customLookMoreStyle.view]}>
-                    <Text style={[styles.loadmoretext, customLookMoreStyle.text]}>
+                <View style={[styles.loadmoreview, customLookMoreStyle?.view]}>
+                    <Text style={[styles.loadmoretext, customLookMoreStyle?.text]}>
                         {ListViewConfig.ShowmoreText}
                     </Text>
                 </View>
@@ -53,9 +53,9 @@ export default class extends React.Component<FooterProps> {
     _renderLoading = () => {
         const { customLoadingStyle } = this.props;
         return (
-            <View style={[styles.loadingview, customLoadingStyle.view]}>
+            <View style={[styles.loadingview, customLoadingStyle?.view]}>
                 <ActivityIndicator size="small"/>
-                <Text style={[styles.loadingtext, customLoadingStyle.text]}>
+                <Text style={[styles.loadingtext, customLoadingStyle?.text]}>
                     {ListViewConfig.LoadingText}
                 </Text>
             </View>
@@ -65,8 +65,8 @@ export default class extends React.Component<FooterProps> {
     _renderNoMore = () => {
         const { customNoMoreStyle } = this.props;
         return (
-            <View style={[styles.nomoreview, customNoMoreStyle.view]}>
-                <Text style={[styles.nomoretext, customNoMoreStyle.text]}>
+            <View style={[styles.nomoreview, customNoMoreStyle?.view]}>
+                <Text style={[styles.nomoretext, customNoMoreStyle?.text]}>
                     {ListViewConfig.NomoreText}
                 </Text>
             </View>
